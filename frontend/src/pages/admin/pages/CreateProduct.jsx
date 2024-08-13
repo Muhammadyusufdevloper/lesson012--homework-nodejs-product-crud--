@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCreateProductMutation } from '../../../context/api/productsApi';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
     title: '',
@@ -14,7 +15,7 @@ const initialState = {
 const CreateProduct = () => {
     const [productData, setProductData] = useState(initialState);
     const [createProduct, { isSuccess }] = useCreateProductMutation();
-
+    const navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value, files } = e.target;
 
@@ -34,6 +35,7 @@ const CreateProduct = () => {
     useEffect(() => {
         if (isSuccess) {
             setProductData(initialState);
+            navigate('/admin/product')
         }
     }, [isSuccess]);
 
@@ -63,6 +65,7 @@ const CreateProduct = () => {
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-2">Product Title</label>
                     <input
+                        required
                         type="text"
                         name="title"
                         value={productData.title}
@@ -73,6 +76,7 @@ const CreateProduct = () => {
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-2">Price</label>
                     <input
+                        required
                         type="number"
                         name="price"
                         value={productData.price}
@@ -83,6 +87,7 @@ const CreateProduct = () => {
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-2">Old Price</label>
                     <input
+                        required
                         type="number"
                         name="oldPrice"
                         value={productData.oldPrice}
@@ -93,6 +98,7 @@ const CreateProduct = () => {
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-2">Category</label>
                     <input
+                        required
                         type="text"
                         name="category"
                         value={productData.category}
@@ -103,6 +109,7 @@ const CreateProduct = () => {
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-2">Stock</label>
                     <input
+                        required
                         type="number"
                         name="stock"
                         value={productData.stock}
@@ -122,6 +129,7 @@ const CreateProduct = () => {
                 <div className="mb-4">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Images</label>
                     <input
+                        required
                         type="file"
                         name="images"
                         accept="image/*"
